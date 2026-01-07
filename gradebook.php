@@ -3,12 +3,12 @@ include 'db_connect.php';
 
 $student_id = 1;
 
-// Get subject and grades (we show only CS323 for clean look)
-$query = "SELECT s.code, s.name, g.*
+// Get grades for the first subject (CS323) - clean and simple
+$query = "SELECT s.code, s.name, g.mid_term, g.assignment, g.quiz, g.final_exam
           FROM subjects s
           JOIN grades g ON s.id = g.subject_id
           WHERE g.student_id = $student_id
-          LIMIT 1";  // Only one subject for beautiful demo
+          LIMIT 1";
 $result = mysqli_query($conn, $query);
 $grade = mysqli_fetch_assoc($result);
 ?>

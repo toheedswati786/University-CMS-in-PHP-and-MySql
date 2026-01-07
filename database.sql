@@ -1,20 +1,22 @@
+CREATE DATABASE IF NOT EXISTS university_cms;
+USE university_cms;
+
 -- Students table
 CREATE TABLE students (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100),
-    roll_no VARCHAR(50),
+    name VARCHAR(100) NOT NULL,
+    roll_no VARCHAR(50) NOT NULL,
     cgpa DECIMAL(3,2) DEFAULT 0.00
 );
 
 -- Subjects table
 CREATE TABLE subjects (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    code VARCHAR(20),
-    name VARCHAR(100),
-    credit_hours INT DEFAULT 3
+    code VARCHAR(20) NOT NULL,
+    name VARCHAR(100) NOT NULL
 );
 
--- Grades for each subject
+-- Grades table
 CREATE TABLE grades (
     id INT AUTO_INCREMENT PRIMARY KEY,
     student_id INT,
@@ -22,7 +24,9 @@ CREATE TABLE grades (
     mid_term DECIMAL(5,2) DEFAULT 0.00,
     assignment DECIMAL(5,2) DEFAULT 0.00,
     quiz DECIMAL(5,2) DEFAULT 0.00,
-    final_exam DECIMAL(5,2) DEFAULT 0.00
+    final_exam DECIMAL(5,2) DEFAULT 0.00,
+    FOREIGN KEY (student_id) REFERENCES students(id),
+    FOREIGN KEY (subject_id) REFERENCES subjects(id)
 );
 
 -- Insert your data
@@ -38,6 +42,6 @@ INSERT INTO subjects (code, name) VALUES
 ('CS327', 'Computer Networks'),
 ('CS328', 'Artificial Intelligence');
 
--- Your marks (only for CS323 shown in gradebook — others can be added later)
+-- Sample grades (only for CS323 - you can add more later)
 INSERT INTO grades (student_id, subject_id, mid_term, assignment, quiz, final_exam) VALUES
 (1, 1, 80.00, 60.00, 0.00, 0.00);

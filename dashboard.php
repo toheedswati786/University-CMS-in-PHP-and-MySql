@@ -1,17 +1,20 @@
 <?php
 include 'db_connect.php';
 
-// Get your student info (ID = 1)
+// Your student ID (change if you add more students)
 $student_id = 1;
+
+// Get student details
 $query = "SELECT * FROM students WHERE id = $student_id";
 $result = mysqli_query($conn, $query);
 $student = mysqli_fetch_assoc($result);
 
-// Get your enrolled courses
+// Get enrolled courses
 $courses_query = "SELECT s.code, s.name 
                   FROM subjects s 
                   JOIN grades g ON s.id = g.subject_id 
-                  WHERE g.student_id = $student_id";
+                  WHERE g.student_id = $student_id 
+                  ORDER BY s.code";
 $courses_result = mysqli_query($conn, $courses_query);
 ?>
 
